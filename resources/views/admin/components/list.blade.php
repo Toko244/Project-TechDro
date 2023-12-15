@@ -1,35 +1,36 @@
 @extends('admin.layouts.app')
 
 @push('name')
-    {{ trans('admin.components') }}
+{{ trans('admin.components') }}
 @endpush
 
 @if(isset($errorMessage))
-    <div class="alert alert-danger">
-        {{ $errorMessage }}
-    </div>
+<div class="alert alert-danger">
+    {{ $errorMessage }}
+</div>
 @endif
 @section('content')
 <div class="row">
-  <div class="col-12">
-      <div class="card-box">
-        @if(isset($count))
+    <div class="col-12">
+        <div class="card-box">
+            @if(isset($count))
             <h4>Count Components : {{$count}}</h4>
             @endif
-        <div style="display: flex; align-items:center; justify-content: space-between; padding:20px 0">
-          <h4 class="mt-0 header-title float-left">{{ $component->name ??  '' }}</h4>
-            <a href="/{{ app()->getLocale() }}/admin/component/create" type="button" class="float-right btn btn-info waves-effect width-md waves-light">{{ trans('admin.add_component') }}</a>
-          </div>
-        <div class="dd section-list">
-          @include('admin.components.list-helper', ['components' => $components ?? ''])
+            <div style="display: flex; align-items:center; justify-content: space-between; padding:20px 0">
+                <h4 class="mt-0 header-title float-left">{{ $component->name ??  '' }}</h4>
+                <a href="/{{ app()->getLocale() }}/admin/component/create" type="button"
+                    class="float-right btn btn-info waves-effect width-md waves-light">{{ trans('admin.add_component') }}</a>
+            </div>
+            <div class="dd section-list">
+                @include('admin.components.list-helper', ['components' => $components ?? ''])
+            </div>
+            <div class="form-group text-right mb-0 " style="padding-top:10px">
+                <button class=" btn btn-info waves-effect waves-light mr-1 btn-save btn-save-nestable" type="submit">
+                    {{ trans('admin.save') }}
+                </button>
+            </div>
         </div>
-			<div class="form-group text-right mb-0 " style="padding-top:10px">
-			<button class=" btn btn-info waves-effect waves-light mr-1 btn-save btn-save-nestable" type="submit">
-				{{ trans('admin.save') }}
-			</button>
-			</div>
-      </div>
-  </div>
+    </div>
 </div>
 
 @endsection
@@ -101,3 +102,25 @@
 
 
 
+
+
+@push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/nestable2/1.6.0/jquery.nestable.min.js" integrity="sha512-7bS2beHr26eBtIOb/82sgllyFc1qMsDcOOkGK3NLrZ34yTbZX8uJi5sE0NNDYFNflwx1TtnDKkEq+k2DCGfb5w==" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    $(window).ready(function(){
+      $('.dd').nestable({ maxDepth: 10 });
+
+      $('.btn-save-nestable').click(function(){
+        var $this = $(this);
+        $.post("/{{ app()->getLocale() }}/admin/sections/arrange", {orderArr: $('.dd').nestable('serialize'), '_token': "{{ csrf_token() }}"}, function(data){
+          // $this.button('reset');
+        });
+
+      });
+      $('.glyphicon').mousedown(function(e){
+        e.stopPropagation();
+      });
+    });
+  </script>
+@endpush
