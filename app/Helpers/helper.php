@@ -68,7 +68,7 @@ function sectionTypes()
 }
 function getStyleAttribute($id)
 {
-    if ($id < 15) {
+    if ($id <= 10) {
         return collect(Config::get('sectionTypes'))->where('type', $id)->first()['style'];
     } else {
         return collect(Config::get('componentTypes'))->where('type', $id)->first()['style'];

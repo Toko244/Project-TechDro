@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'id' => 8,
-    'type' => 8,
+    'id' => 3,
+    'type' => 3,
     'style' => 1,
     'folder' => 'blog',
     'fields' => [

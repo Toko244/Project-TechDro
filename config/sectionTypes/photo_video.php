@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'id' => 4,
-    'type' => 4,
+    'id' => 7,
+    'type' => 7,
     'style' => 1,
     'folder' => 'contact',
     'fields' => [
