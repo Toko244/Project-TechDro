@@ -29,6 +29,7 @@ return [
     'Forms' => 'Forms',
     'create_form_inputs' => 'create form Inputs',
     'text' => 'text',
+    'Official Website Link' => 'Official Website Link',
     'name' => 'Name',
     'email' => 'Email',
     'thumb' => 'Thumb',

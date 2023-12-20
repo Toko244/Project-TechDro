@@ -29,9 +29,6 @@ return [
                 'required' => '',
                 'data-icon' => '',
             ],
-            'file Upload' => [
-                'type' => 'file',
-            ],
             'active' => [
                 'type' => 'checkbox',
             ],

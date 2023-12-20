@@ -145,7 +145,7 @@
                 </div>
             </div>
         @endif
-        @if (count($section->components()) > 0)
+        @if ($section->components()->count() > 0)
             @foreach ($section->components() as $key => $item)
                 <section>
                     <x-dynamic-component :component="$item" :sectionId="$key" />
@@ -162,4 +162,4 @@
             {{session('message')}}
         </div>
     </div>
-@endif  
+@endif

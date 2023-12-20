@@ -72,6 +72,11 @@ class Section extends Model
         return $this->morphMany(Slug::class, 'slugable');
     }
 
+    public function components()
+    {
+        return $this->hasMany(Component::class);
+    }
+
     /**
      * tgis function gets Type of the section
      * you can use it with just "->type"

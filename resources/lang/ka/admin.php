@@ -26,6 +26,7 @@ return [
     'textarea' => 'textarea',
     'file' => 'file',
     'select' => 'select',
+    'Official Website Link' => 'ოფიციალური ვებგვერდის ლინკი',
     'checkbox' => 'checkbox',
     'number' => 'number',
     'create_date' => 'Created At',

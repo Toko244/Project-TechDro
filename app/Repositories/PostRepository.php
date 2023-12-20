@@ -59,7 +59,6 @@ class PostRepository implements PostRepositoryInterface
         } else {
             $values['additional'] = getAdditional($values, array_diff(array_keys($section->fields['nonTrans']), $postFillable));
         }
-
         foreach (config('app.locales') as $locale) {
             if ($request->has('is_component')) {
                 $values[$locale]['slug'] = str_replace(' ', '-', $values[$locale]['title']);
@@ -85,7 +84,6 @@ class PostRepository implements PostRepositoryInterface
     }
     public function updatePost($id, Request $request)
     {
-
         $post = Post::where('id', $id)->with('translations')->first();
         $section = Section::where('id', $post->section_id)->with('translations')->first();
         $values = $request->all();

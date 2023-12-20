@@ -28,9 +28,6 @@ return [
                 'required' => '',
                 'data-icon' => '',
             ],
-            'logo Upload' => [
-                'type' => 'file',
-            ],
             'active' => [
                 'type' => 'checkbox',
             ],
@@ -39,7 +36,7 @@ return [
             'images' => [
                 'type' => 'images',
             ],
-            'Official Website Link' => [
+            'website_link' => [
                 'type' => 'text',
                 'required' => 'required',
                 'data-icon' => '-',
