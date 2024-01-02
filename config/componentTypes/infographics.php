@@ -1,16 +1,16 @@
 <?php
 
 return [
-    'id' => 29,
-    'type' => 29,
+    'id' => 2,
+    'type' => 1,
     'style' => 2,
-    'section' => false,
-    'manual' => true,
+    'section' => true,
+    'manual' => false,
     'image' => false,
     'multiple_posts' => false,
-    'sectionTypes' => [],
+    'sectionTypes' => [1],
     'directoryType' => null,
-    'folder' => '../components/counter',
+    'folder' => '../components/infographics',
     'fields' => [
         'trans' => [
             'title' => [
@@ -18,19 +18,17 @@ return [
                 'required' => 'required',
                 'data-icon' => '-',
             ],
-            'value' => [
-                'type' => 'text',
-                'required' => 'required',
-                'data-icon' => '-',
-            ],
-            'active' => [
-                'type' => 'checkbox',
-            ],
         ],
         'nonTrans' => [
-            'date' => [
-                'type' => 'date',
+            'number' => [
+                'type' => 'number',
+                'required' => 'required',
             ],
+
+            'active' => [
+                'type' => 'checkbox',
+                'required' => ''
+            ]
         ],
     ],
 ];

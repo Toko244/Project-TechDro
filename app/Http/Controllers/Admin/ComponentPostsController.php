@@ -13,8 +13,10 @@ use Illuminate\Http\Response;
 
 class ComponentPostsController extends Controller
 {
-    public function __construct(private ComponentPostRepositoryInterface $ComponentPostRepository, private ComponentableRepositoryInterface $componentableRepository)
-    {
+    public function __construct(
+        private ComponentPostRepositoryInterface $ComponentPostRepository,
+        private ComponentableRepositoryInterface $componentableRepository
+    ) {
     }
 
     /**
@@ -85,11 +87,12 @@ class ComponentPostsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ComponentPost $componentPost)
+    public function destroy($id)
     {
-        $this->ComponentPostRepository->deleteComponentPost($componentPost->id);
 
-        return response(['message' => __('component_post_deleted_successfully')], Response::HTTP_OK);
+        $this->ComponentPostRepository->deleteComponentPost($id);
+
+        return redirect()->route('post.list', [app()->getLocale(), $id]);
     }
 
     public function getPostsForComponent(Request $request)

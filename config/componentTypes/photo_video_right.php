@@ -1,16 +1,16 @@
 <?php
 
 return [
-    'id' => 25,
-    'type' => 25,
-    'style' => 1,
+    'id' => 4,
+    'type' => 1,
+    'style' => 2,
     'section' => false,
-    'manual' => true,
+    'manual' => false,
     'image' => false,
     'multiple_posts' => false,
     'sectionTypes' => [],
     'directoryType' => null,
-    'folder' => '../components/text',
+    'folder' => '../components/photo_video_right',
     'fields' => [
         'trans' => [
             'title' => [
@@ -18,31 +18,23 @@ return [
                 'required' => 'required',
                 'data-icon' => '-',
             ],
-            'desc' => [
-                'type' => 'textarea',
-                'required' => '',
-                'data-icon' => '',
-            ],
-            'redirect_link' => [
+            'button_title' => [
                 'type' => 'text',
                 'required' => '',
                 'data-icon' => '',
             ],
-            'active' => [
-                'type' => 'checkbox',
+            'button_link' => [
+                'type' => 'text',
+                'required' => '',
+                'data-icon' => ''
             ],
         ],
         'nonTrans' => [
             'image' => [
                 'type' => 'image',
-            ],
-            'youtube' => [
-                'type' => 'text',
+                'required' => '',
             ],
 
-            'date' => [
-                'type' => 'date',
-            ],
-        ],
+        ]
     ],
 ];

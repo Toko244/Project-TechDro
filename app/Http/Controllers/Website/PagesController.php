@@ -54,7 +54,8 @@ class PagesController extends Controller
         if ($model->type_id == 5) {
             $section = Section::where('id', $model->id)->with('translation')->first();
             $post = $section->sectionPost();
-            $components = Section::where([['is_component', true], ['parent_id', $section->id]])->orderBy('order', 'asc')->select('type_id', 'id')->paginate(settings('list_pagination'));
+            $components = Section::where([ ['parent_id', $section->id]])->orderBy('order', 'asc')->select('type_id', 'id')->paginate(settings('list_pagination'));
+            // $components = Section::where([['is_component', true], ['parent_id', $section->id]])->orderBy('order', 'asc')->select('type_id', 'id')->paginate(settings('list_pagination'));
 
             // $components = $section->components();
             return view('website.list-page', compact('section', 'post', 'components', 'language_slugs'));

@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Component;
 use App\Models\ComponentPost;
 use App\Models\Post;
+use Illuminate\Http\Request;
 use App\Repositories\Interfaces\ComponentPostRepositoryInterface;
 
 class ComponentPostRepository implements ComponentPostRepositoryInterface
@@ -30,7 +31,6 @@ class ComponentPostRepository implements ComponentPostRepositoryInterface
                     ->orderBy('sort', 'asc')
                     ->limit(5)->get();
             }
-
         } else {
             $posts = Post::whereHas('components', function ($q) use ($componentId) {
                 $q->where('component_id', $componentId);
@@ -74,12 +74,13 @@ class ComponentPostRepository implements ComponentPostRepositoryInterface
 
     public function deleteComponentPost($id)
     {
-        $componentPost = ComponentPost::where('id', $id)->first();
-        $post = Post::whereId($componentPost->post_id)->first();
-        if ($post->section_id == '') {
+        $componentPost = ComponentPost::where('component_id', $id)->first();
+        $post = Post::find($id);
+        if ($post && $post->section_id == '') {
             $post->delete();
         }
-
-        return $componentPost->delete();
+        if ($componentPost) {
+            $componentPost->delete();
+        }
     }
 }

@@ -1,30 +1,30 @@
 <?php
 
 return [
-    'id' => 32,
-    'type' => 32,
-    'style' => 1,
+    'id' => 7,
+    'type' => 1,
+    'style' => 2,
     'section' => false,
-    'manual' => true,
+    'manual' => false,
     'image' => false,
     'multiple_posts' => false,
     'sectionTypes' => [],
     'directoryType' => null,
-    'folder' => '../components/subscribebanner',
+    'folder' => '../components/help_you',
     'fields' => [
         'trans' => [
             'title' => [
                 'type' => 'text',
                 'required' => 'required',
                 'data-icon' => '-',
-            ],
-            'desc' => [
-                'type' => 'textarea',
-                'required' => '',
-                'data-icon' => '',
-            ],
+            ]
         ],
         'nonTrans' => [
+            'link' => [
+                'type' => 'text',
+                'required' => 'required',
+                'data-icon' => '-',
+            ]
         ],
     ],
 ];

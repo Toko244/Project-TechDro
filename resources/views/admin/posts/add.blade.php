@@ -6,16 +6,24 @@
         <div class="card-box">
 
             @if(isset($section))
-            {!! Form::open(['route' => ['post.store', app()->getLocale(), $section->id], "enctype" => "multipart/form-data"]) !!}
-                @include('admin.posts.form')
-            {!! Form::close() !!}
+                {!! Form::open(['route' => ['post.store', app()->getLocale(), $section->id], "enctype" => "multipart/form-data"]) !!}
+                    @include('admin.posts.form')
+                {!! Form::close() !!}
             @else
-            {!! Form::open(['route' => ['post.store', app()->getLocale(), $component->id], "enctype" => "multipart/form-data"]) !!}
+                {!! Form::open(['route' => ['post.store', app()->getLocale(), $component->id], "enctype" => "multipart/form-data"]) !!}
             @include('admin.posts.form')
-        {!! Form::close() !!}
+                {!! Form::close() !!}
             @endif
 
-
+            @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
 
         </div>
@@ -57,7 +65,6 @@
 
 @push('scripts')
 {{-- image Upload --}}
-
 
     <!-- Validation js (Parsleyjs) -->
     <script src="{{ asset('admin/libs/parsleyjs/parsley.min.js') }}"></script>

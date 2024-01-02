@@ -6,6 +6,7 @@ use App\Traits\AuthorTrait;
 use Astrotomic\Translatable\Translatable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -68,7 +69,10 @@ class Component extends Model
             array_keys(getContentType('componentTypes', $this->type_id))[0] :
             '';
     }
-
+    public function getFieldsAttribute()
+    {
+        return collect(Config::get('componentTypes'))->where('id', $this->type_id)->first()['fields'];
+    }
     /**
      * Get the user that owns the Component
      */

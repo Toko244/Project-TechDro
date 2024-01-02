@@ -6,9 +6,9 @@
             </div>
             <div class="change-icons">
                 @if ($section->type_id != 1)
-                    <a href="/{{ app()->getLocale() }}/admin/section/{{ $section->id }}/posts/" class="far fa-eye"></a>
-                @endif
-                <a href="/{{ app()->getLocale() }}/admin/components/{{ $section->id }}"
+                <a href="/{{ app()->getLocale() }}/admin/section/{{ $section->id }}/posts" class="far fa-eye"></a>
+            @endif
+                <a href="/{{ app()->getLocale() }}/admin/components"
                     class="fa-solid fa-gear"></a>
                 <a href="/{{ app()->getLocale() }}/admin/sections/edit/{{ $section->id }}"
                     class="fas fa-pencil-alt"></a>

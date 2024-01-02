@@ -68,24 +68,11 @@
             </div>
         </div>
         @if($section->components()->count() > 0)
-            @if(count($section->sectionScrollcomponents())> 0)
             <div class="guideline relative">
                 <div class="container">
                     <div class="guideline-list">
                         <div class="title semibold text-2xl mb-3 w-full white">
                             {{ trans('website.page_guideline') }}
-                        </div>
-                        <div class="list flex wrap w-full">
-                            @foreach ($section->sectioncomponents() as $key => $item)
-                                @if(isset($item->additional['scroll_content']) && $item->additional['scroll_content'] == 1)
-                                <div class="list-bullet relative flex items-center">
-                                    <div class="circle"></div>
-                                    <a class="semibold white scroll_data_id" data-id="{{ $item->id }}"   >
-                                        {{ $item->title }}
-                                    </a>
-                                </div>
-                                @endif
-                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -109,21 +96,9 @@
                         <div class="title semibold text-2xl mb-3 w-full white">
                             {{ trans('website.page_guideline') }}
                         </div>
-
-                        @foreach ($section->sectioncomponents() as $key => $item)
-                        @if(isset($item->additional['scroll_content']) && $item->additional['scroll_content'] == 1)
-                            <div class="flex items-center mb-3">
-                                <div class="circle"></div>
-                                <a class="semibold white scroll_data_id" data-id="{{ $item->id }}"   >
-                                    {{ $item->title }}
-                                </a>
-                            </div>
-                            @endif
-                        @endforeach
                     </div>
                 </div>
             </div>
-            @endif
             @foreach ($section->components() as $key => $item)
                 <section id="{{ $key }}">
                     <x-dynamic-component :component="$item" :sectionId="$key" />

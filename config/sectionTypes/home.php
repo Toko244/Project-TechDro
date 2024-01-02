@@ -40,6 +40,7 @@ return [
             'type' => 'checkbox',
             'options' => 'sections',
             'translateble' => true,
+            'required' => ''
         ],
     ],
 

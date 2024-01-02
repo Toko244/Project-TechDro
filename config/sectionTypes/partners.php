@@ -30,11 +30,14 @@ return [
             ],
             'active' => [
                 'type' => 'checkbox',
+                'required' => '',
+
             ],
         ],
         'nonTrans' => [
             'images' => [
                 'type' => 'images',
+                'required' => '',
             ],
             'website_link' => [
                 'type' => 'text',

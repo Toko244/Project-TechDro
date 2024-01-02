@@ -47,7 +47,7 @@ class UpdatePostRequest extends FormRequest
 
         foreach (getFields($this->type_id, $this->type, 'nonTrans') as $key => $fields) {
             $validation = $validation + [
-                $key => $fields,
+                $key => $fields['required'],
             ];
         }
 
@@ -57,7 +57,7 @@ class UpdatePostRequest extends FormRequest
 
                 if ($key === 'slug') {
                     $validation = $validation + [
-                        "{$locale}.slug" => 'unique:slugs,slug,'.($this->post ? $this->post : 'NULL').',slugable_id',
+                        "{$locale}.slug" => 'unique:slugs,slug,' . ($this->post ? $this->post : 'NULL') . ',slugable_id',
                     ];
                 } else {
                     // Check if "required" key exists in $fields before accessing it

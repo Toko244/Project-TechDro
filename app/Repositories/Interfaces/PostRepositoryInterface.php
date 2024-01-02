@@ -1,20 +1,20 @@
 <?php
 
 namespace App\Repositories\Interfaces;
-use Illuminate\Http\Request;
+
+use App\Models\Post;
 
 interface PostRepositoryInterface
 {
-    public function getAllPosts($sec);
+    public function getAllPosts($filters);
 
     public function getPostById($id);
 
-    public function createPost($sec);
+    public function createPost(array $attributes);
 
-    public function updatePost($id, Request $request);
+    public function updatePost(Post $id, array $attributes);
 
-    public function storePost($sec , Request $request);
+    public function addConnectedPosts(array $data, $id);
 
     public function deletePost($id);
-
 }

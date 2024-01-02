@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\ComponentsController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'admin', 'middleware' => ['role:Administrator']], function () {
-    Route::get('components/{sec?}', [ComponentsController::class, 'index'])->name('components.index');
+    Route::get('components', [ComponentsController::class, 'index'])->name('components.index');
     Route::get('component/create', [ComponentsController::class, 'create']);
     Route::post('component/create', [ComponentsController::class, 'store'])->name('component.create');
     Route::get('component/{id}/edit', [ComponentsController::class, 'edit']);

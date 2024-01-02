@@ -30,14 +30,17 @@ return [
             ],
             'author' => [
                 'type' => 'user',
+                'required' => ''
             ],
             'active' => [
                 'type' => 'checkbox',
+                'required' => ''
             ],
         ],
         'nonTrans' => [
             'images' => [
                 'type' => 'images',
+                'required' => ''
             ],
         ],
 

@@ -19,8 +19,11 @@ class ComponentsController extends Controller
 {
     use FileUploadTrait;
 
-    public function __construct(private ComponentInterfaceRepository $componentrepository, private ComponentPostRepositoryInterface $componentPostRepository)
-    {
+    public function __construct(
+        private ComponentInterfaceRepository $componentrepository,
+
+        private ComponentPostRepositoryInterface $componentPostRepository
+    ) {
     }
 
     /**
@@ -41,50 +44,43 @@ class ComponentsController extends Controller
     public function create()
     {
         $components = Component::with('translation')->get();
-        $component = Component::first();
-        $types = getContentTypes('componentTypes');
         $sections = Section::all();
-        $section = $sections->first();
-        $componentTypes = getContentType('componentTypes', $types);
-
-        return view('admin.components.add', compact(['types', 'component', 'components', 'componentTypes', 'section', 'sections']));
+        return view('admin.components.add', compact(['components', 'sections']));
     }
 
     public function store(ComponentRequest $request)
     {
-
+        // dd($request->all());
         try {
+            // Validate the request
             $data = $request->validated();
-
-            foreach (config('app.locales') as $locale) {
-                if (isset($data[$locale]['title'])) {
-                    $data[$locale]['title'] = str_replace(' ', '-', $data[$locale]['title']);
-                }
-            }
-
+            // Create the component
             $component = Component::create($data);
-            $componentTypes = getContentTypes('componentTypes');
-            // dd($component->connectionPosts);
 
-            return response()->json([
-                'newlyCreated' => true,
+            $componentTypes = getContentTypes('componentTypes');
+
+            return redirect()->route('components.index', [app()->getLocale()])->with([
                 'component' => $component,
                 'connection' => $component->connectionPosts,
                 'type' => $componentTypes,
             ], Response::HTTP_CREATED);
-        } catch (\Exception $e) {
-            dd($e->getMessage());
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Validation failed
+            dd($e->errors());
         }
     }
 
-    public function edit(Request $request, $sec = null)
+
+    public function edit($id, $sec = null)
     {
-        $component = Component::where('id', $request->id)->first();
+
+        $main_component = Component::FindOrFail($id);
+        // dd($component);
         $components = Component::all();
         $sections = Section::all();
         $section = Section::first();
-
-        return view('admin.components.edit', compact(['component', 'section', 'components', 'sections']));
+        // dd($components);
+        return view('admin.components.edit', compact(['main_component', 'section', 'components', 'sections']));
     }
 
     public function update($id, Request $request)
@@ -93,17 +89,8 @@ class ComponentsController extends Controller
 
         try {
 
-            $serializedData = $request->input('data');
+            $data = $request->all();
 
-            $data = [];
-            parse_str($serializedData, $data);
-
-            foreach (config('app.locales') as $locale) {
-                if (isset($data[$locale]['title'])) {
-                    $data[$locale]['title'] = str_replace(' ', '-', $data[$locale]['title']);
-                }
-            }
-            $data['name'] = $data['name'];
             if (empty($data['section_id'])) {
                 $data['section_id'] = null;
             }
@@ -135,7 +122,7 @@ class ComponentsController extends Controller
             // $component = $component->load('files',  'componentables.componentable.translation', 'author');
             DB::commit();
 
-            return response(
+            return redirect()->route('components.index', [app()->getLocale()])->with(
                 [
                     'message' => __('component-updated-successfully'),
                     'component' => $component,

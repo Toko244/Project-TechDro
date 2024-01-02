@@ -30,12 +30,24 @@ return [
             ],
             'active' => [
                 'type' => 'checkbox',
+                'required' => ''
             ],
         ],
         'nonTrans' => [
             'images' => [
                 'type' => 'images',
+                'required' => ''
             ],
+
+            'start_date' => [
+                'type' => 'date',
+                'required' => '',
+            ],
+
+            'end_date' => [
+                'type' => 'date',
+                'required' => '',
+            ]
         ],
 
     ],

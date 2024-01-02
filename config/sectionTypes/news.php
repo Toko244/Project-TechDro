@@ -31,12 +31,19 @@ return [
             ],
             'active' => [
                 'type' => 'checkbox',
+                'required' => ''
             ],
         ],
         'nonTrans' => [
             'images' => [
                 'type' => 'images',
+                'required' => ''
             ],
+
+            'date' => [
+                'type' => 'date',
+                'required' => ''
+            ]
         ],
 
     ],

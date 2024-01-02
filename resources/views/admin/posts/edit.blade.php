@@ -60,7 +60,6 @@
 
 
 
-
     <!-- Validation js (Parsleyjs) -->
     <script src="{{ asset('admin/libs/parsleyjs/parsley.min.js') }}"></script>
 

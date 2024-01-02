@@ -47,6 +47,7 @@ class Post extends Model
         return LogOptions::defaults();
     }
 
+
     public function slug($locale)
     {
         $slug = Slug::where('slugable_type', 'App\Models\Post')
@@ -61,33 +62,6 @@ class Post extends Model
         return null;
     }
 
-    public function scopeFilter($query, $filters = [])
-    {
-        $query->when(isset($filters['section_id']), function ($q) use ($filters) {
-            $q->where('section_id', $filters['section_id']);
-        })->when(isset($filters['keyword']), function ($q) use ($filters) {
-            $q->whereHas('translations', function ($q) use ($filters) {
-                $q->where('title', 'LIKE', "%{$filters['keyword']}%");
-            });
-        })->when(isset($filters['year']), function ($q) use ($filters) {
-            $q->where('year', $filters['year']);
-        })->when(isset($filters['start_date']), function ($q) use ($filters) {
-            $q->whereDate('created_at', '>=', Carbon::createFromFormat('d/m/Y', $filters['start_date'])->format('y-m-d'));
-        })->when(isset($filters['end_date']), function ($q) use ($filters) {
-            $q->whereDate('created_at', '<=', Carbon::createFromFormat('d/m/Y', $filters['end_date'])->format('y-m-d'));
-        })->when(isset($filters['topics']), function ($q) use ($filters) {
-            $q->whereHas('directories', function ($q) use ($filters) {
-                $q->whereIn('directory_id', $filters['topics']);
-            });
-        })
-            ->when(isset($filters['type_id']), function ($q) use ($filters) {
-                $q->whereHas('section', function ($q) use ($filters) {
-                    $q->where('type_id', $filters['type_id']);
-                });
-            });
-
-        return $query;
-    }
 
     public function slugs()
     {
@@ -128,7 +102,6 @@ class Post extends Model
         }
 
         return null;
-
     }
 
     public function section()
@@ -175,7 +148,6 @@ class Post extends Model
         if (in_array($key, locales())) {
 
             return $this->translations->keyBy('locale')->get($key);
-
         }
 
         if (isset($this->attributes['additional']) && array_key_exists($key, json_decode($this->attributes['additional'], true))) {
@@ -189,6 +161,14 @@ class Post extends Model
     public function componentPost()
     {
         return $this->hasOne(ComponentPost::class, 'post_id', 'id');
+    }
+    public function directories()
+    {
+        return $this->belongsToMany(Directory::class, 'directory_post')->withPivot('type');
+    }
+    public function teams()
+    {
+        return $this->belongsToMany(Directory::class, 'directory_post')->withPivot('type')->where('type', 'team');
     }
 
     /**
@@ -206,7 +186,7 @@ class Post extends Model
         $translations = $this->translations;
 
         foreach ($translations as $key => $value) {
-            $slugs[$value->locale] = $slugs[$value->locale].'/'.$value->slug;
+            $slugs[$value->locale] = $slugs[$value->locale] . '/' . $value->slug;
         }
 
         return $slugs;

@@ -8,6 +8,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:Administrator']], func
     Route::get('/componentPosts/{component_id}', [ComponentPostsController::class, 'index'])->name('componentPosts.index');
     Route::get('/componentPosts/create/{component_id}', [ComponentPostsController::class, 'create']);
     Route::post('/componentPosts/create', [ComponentPostsController::class, 'store'])->name('component.store');
+    Route::get('/componentPosts/delete/{id}', [ComponentPostsController::class, 'destroy'])->name('componentPosts.destroy');
+
     // componantable //
     Route::post('componentable/sort', [ComponentableController::class, 'sort'])->name('componentable.sort');
     Route::get('componentable/{id}', [ComponentableController::class, 'index'])->name('componentable.index');

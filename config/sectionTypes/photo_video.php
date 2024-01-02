@@ -20,11 +20,13 @@ return [
             ],
             'active' => [
                 'type' => 'checkbox',
+                'required' => ''
             ],
         ],
         'nonTrans' => [
             'images' => [
                 'type' => 'images',
+                'required' => ''
             ],
         ],
     ],

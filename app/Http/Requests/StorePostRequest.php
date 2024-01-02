@@ -39,6 +39,7 @@ class StorePostRequest extends FormRequest
             'author_id' => 'nullable|exists:user,id',
             'sort' => 'nullable|integer',
             'type_id' => 'nullable',
+            'thumb' => 'nullable',
             'data_type' => 'nullable',
             'component_id' => 'nullable',
             'type' => 'nullable',
@@ -47,9 +48,10 @@ class StorePostRequest extends FormRequest
         foreach (getFields($this->type_id, $this->type, 'nonTrans') as $key => $fields) {
 
             $validation = $validation + [
-                $key => $fields,
+                $key => $fields['required'],
             ];
         }
+
         foreach (getFields($this->type_id, $this->type, 'trans') as $key => $fields) {
             foreach (config('app.locales') as $locale) {
                 $validationRules = [];
@@ -58,18 +60,16 @@ class StorePostRequest extends FormRequest
                 if (isset($fields['required'])) {
                     $validationRules = $fields['required'];
                 }
-
+                // dd($validation);
                 // Add other validation rules as needed
                 $validation = $validation + [
                     "{$locale}.{$key}" => $validationRules,
                 ];
-
             }
-
         }
+        // dd($validation);
 
         return $validation;
-
     }
 
     /**
@@ -98,6 +98,5 @@ class StorePostRequest extends FormRequest
         }
 
         $this->merge($data);
-
     }
 }
